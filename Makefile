@@ -2,7 +2,7 @@
 
 all: clean split
 
-output:
+output: clean
 	mkdir -p output
 
 split: output
