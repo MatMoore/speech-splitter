@@ -2,6 +2,10 @@ from glob import glob
 import subprocess
 from pathlib import Path
 
+# input() handles input better if readline is loaded
+# e.g. arrow keys work, and backspace works properly with hangeul input
+import readline
+
 def prompt(path):
     transcript = None
     while not transcript:
