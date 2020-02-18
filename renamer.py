@@ -15,8 +15,18 @@ def prompt(path):
     return transcript
 
 
+def pad_filename(filename):
+    """
+    pyAudioAnalysis adds stuff like "131.700-132.850" and "14.200-26.500" to the output filenames
+    this doesn't sort properly because the numbers like 131 and 14 are not padded with zeros.
+    """
+    time_range = Path(filename).stem.replace('2000-essential-korean-words-', '')
+    from_timestamp, to_timestamp = (float(ts) for ts in time_range.split('-'))
+    return f'{from_timestamp:08.3f}-{to_timestamp:08.3f}'
+
+
 if __name__ == '__main__':
-    for filepath in sorted(glob('output/*_*-*.wav')):
+    for filepath in sorted(glob('output/*_*-*.wav'), key=pad_filename):
         path = Path(filepath)
 
         transcript = prompt(path)
